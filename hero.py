@@ -1,10 +1,26 @@
 import random
-class Hero():
+
+class Hero:
     
     def __init__(self,name,starting_health=100):
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+
+    def add_ability(self,ability_object):
+        self.ability_object = ability_object
+
+    def attack(self):
+        pass
+
+    def defend(self,incoming_damage=1):
+        self.incoming_damage = incoming_damage
+
+    def take_damage(self,damage):
+        self.damage = damage
+
+    def is_alive(self):
+        pass
 
     def fight(self, opponent):
         self.opponent = Hero(opponent)
