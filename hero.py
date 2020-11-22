@@ -6,11 +6,19 @@ from weapon import Weapon
 class Hero:
     
     def __init__(self,name,starting_health=100):
+        self.deaths = 0
+        self.kills = 0
         self.abilities = list()
         self.armors = list()
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+    
+    def add_kill(self,num_kills):
+        self.kills += num_kills
+
+    def add_death(self,num_deaths):
+        self.deaths += num_deaths
 
     def add_weapon(self,weapon):
         self.abilities.append(weapon)
@@ -49,20 +57,15 @@ class Hero:
             while self.current_health and opponent.current_health >= 0:
                 opponent.take_damage(self.attack())
                 self.take_damage(opponent.attack())
-                if self.is_alive() == True:
-                    print(f'{self.name} has won!')
-                    break
-                else:
+                
+            if self.is_alive() or opponent.is_alive() == True:
+                if self.is_alive() == False:
+                    opponent.add_kill(1)
+                    self.add_death(1)
                     print(f'{opponent.name} has won!')
-                    break
-        else:
-            print('Draw')
+                elif opponent.is_alive() == False:
+                    self.add_kill(1)
+                    opponent.add_death(1)   
+                    print(f'{self.name} has won!')
 
 
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block is executed.
-    hero = Hero("Wonder Woman")
-    weapon = Weapon("Lasso of Truth", 90)
-    hero.add_weapon(weapon)
-    print(hero.attack())
