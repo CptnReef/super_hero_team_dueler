@@ -1,6 +1,7 @@
 import random
 from ability import Ability
 from armor import Armor
+from weapon import Weapon
 
 class Hero:
     
@@ -10,6 +11,9 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
+
+    def add_weapon(self,weapon):
+        self.abilities.append(weapon)
 
     def add_ability(self,ability):
         self.abilities.append(ability)
@@ -54,22 +58,11 @@ class Hero:
         else:
             print('Draw')
 
-  # 2) the hero (self) and their opponent must attack each other and each must take damage from the other's attack
-  # 3) After each attack, check if either the hero (self) or the opponent is alive
-  # 4) if one of them has died, print "HeroName won!" replacing HeroName with the name of the hero, and end the fight loop
 
 if __name__ == "__main__":
     # If you run this file from the terminal
     # this block is executed.
-
-    hero1 = Hero("Wonder Woman")
-    hero2 = Hero("Dumbledore")
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 380)
-    ability4 = Ability("Wizard Beard", 320)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    hero = Hero("Wonder Woman")
+    weapon = Weapon("Lasso of Truth", 90)
+    hero.add_weapon(weapon)
+    print(hero.attack())
