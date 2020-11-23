@@ -19,11 +19,17 @@ class Team:
             living_opponents.append(hero)
 
         while len(living_heroes) > 0 and len(living_opponents)> 0:
-            living_heroes.append(hero.fight(random.choice(living_heroes)))
-            living_opponents.append(hero.fight(random.choice(living_opponents)))
+            hero1 = random.choice(living_heroes)
+            hero2 = random.choice(living_opponents)
+            hero1.fight(hero2)
+            if hero1.is_alive():
+                living_opponents.remove(hero2)
+            else:
+                living_heroes.remove(hero1)
 
     def revive_heroes(self, health=100):
-        self.current_health = health
+        for restore in self.heroes:
+            restore.current_health = health
 
     def stats(self):
         for hero in self.heroes:
@@ -31,16 +37,17 @@ class Team:
             print(f"{self.name} Kill/Deaths:{kd}")
             
     def remove_hero(self,name):
+        remove_hero = False
         for hero in self.heroes:
             if hero.name == name:
                 self.heroes.remove(hero)
-                foundHero = True
-            if not foundHero:
-                return 0
+                remove_hero = True
+        if not remove_hero:
+            return 0
     
     def view_all_heroes(self):
         for hero in self.heroes:
-            return print(hero)        
+            print(hero)        
 
     def add_hero(self,hero):
-        self.heroes.append()
+        self.heroes.append(hero)

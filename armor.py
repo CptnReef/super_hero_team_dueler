@@ -6,6 +6,6 @@ class Armor:
         self.max_block = max_block
 
     def block(self):
-        self.random_value = random.randint(0,self.max_block)
-        return self.random_value
+        random_value = random.randint(0,self.max_block)
+        return random_value
 

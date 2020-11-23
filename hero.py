@@ -10,6 +10,7 @@ class Hero:
         self.kills = 0
         self.abilities = list()
         self.armors = list()
+        self.weapons = list()
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
@@ -37,13 +38,16 @@ class Hero:
 
     def defend(self, damage_amt=0):
         total_block = 0
-        for block in self.armors:
-            total_block += block.block()
-        return total_block
+        if self.armors != []:
+            for block in self.armors:
+                total_block += block.block()
+            return total_block
+        else:
+            return total_block
 
     def take_damage(self,damage=50):
-        hurt = damage - self.defend(damage)
-        self.current_health -= hurt
+        damage = damage - self.defend(damage)
+        self.current_health -= damage
 
     def is_alive(self):
         if self.current_health <= 0:
@@ -52,12 +56,10 @@ class Hero:
             return True
 
     def fight(self, opponent):
-        if opponent.abilities and self.abilities:
-            
+        if opponent.abilities and self.abilities == []:
             while self.current_health and opponent.current_health >= 0:
-                opponent.take_damage(self.attack())
                 self.take_damage(opponent.attack())
-                
+                opponent.take_damage(self.attack())            
             if self.is_alive() or opponent.is_alive() == True:
                 if self.is_alive() == False:
                     opponent.add_kill(1)
@@ -67,5 +69,7 @@ class Hero:
                     self.add_kill(1)
                     opponent.add_death(1)   
                     print(f'{self.name} has won!')
+        else:
+            print("No Contest")
 
 
