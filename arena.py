@@ -57,20 +57,22 @@ class Arena:
         self.team_one.attack(self.team_two)
 
     def show_stats(self):
-        print(self.team_one.name + " statistic: \n")
+        print("\n")
+        print(self.team_one.name + " statistics: ")
         self.team_one.stats()
-        print(self.team_two.name + " statistic: \n")
+        print("\n")
+        print(self.team_two.name + " statistics: ")
         self.team_two.stats()
+        print("\n")
 
         team_kills = 0
         team_deaths = 0
-
         for hero in self.team_one.heroes:
             team_kills += hero.kills
             team_deaths += hero.deaths
         if team_deaths == 0:
-            teams_deaths = 1
-        print(self.team_one.name + " averag k/d was: " + str(team_kills/teams_deaths))
+            team_deaths = 1
+        print(self.team_one.name + " average K/D was: " + str(team_kills/team_deaths))
 
         teams_kills = 0
         team_deaths = 0
@@ -91,10 +93,27 @@ class Arena:
                 print(f"survived from {self.team_two.name}: {hero.name}")
 
 
-
 if __name__ == "__main__":
+    game_is_running = True
+
+    # Instantiate Game Arena
     arena = Arena()
+
+    #Build Teams
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        #Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            #Revive heroes to play again
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()

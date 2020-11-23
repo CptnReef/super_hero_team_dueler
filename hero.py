@@ -72,4 +72,3 @@ class Hero:
         else:
             print("No Contest")
 
-
